@@ -1,0 +1,324 @@
+{
+    "flowName": "安全巡检流程01",
+    "flowVars": {},
+    "flowStatus": "110",
+    "authorKey": "Author",
+    "openType": "true",
+    "flowId": "SafetyInspection01",
+    "selectNodes": "",
+    "subjectionId": "",
+    "workId": "HZd9282a6aa07509016b6346dd190d6a",
+    "hasForm": "false",
+    "flowUser": {
+        "deptId": "10039",
+        "userName": "高亮",
+        "author": "Author;Creator",
+        "userId": "100007",
+        "transactorName": "高亮",
+        "authorName": "主办;创建者",
+        "deptName": "安全管理室"
+    },
+    "flowStatusName": "正常",
+    "flowMsg": "OK",
+    "flowNode": {
+        "trackId": "HZd9282a6aa07509016b6346dd190d6b",
+        "nodeId": "Node2",
+        "nodeVars": "",
+        "nodeName": "记录巡检结果"
+    },
+    "form": [{
+        "type": "select_project",
+        "id": "project_id",
+        "lable": "工程名称",
+        "view_Node": ["Node2", "Node4", "Node5", "Node6", "Node7"],
+        "edit_Node": ["Node2"],
+        "value": ""
+    }, {
+        "type": "select_date",
+        "id": "check_day",
+        "lable": "检查日期",
+        "view_Node": ["Node2", "Node4", "Node5", "Node6", "Node7"],
+        "edit_Node": ["Node2"],
+        "value": ""
+    }, {
+        "type": "text",
+        "id": "check_location",
+        "lable": "施工部位",
+        "view_Node": ["Node1", "Node4", "Node5", "Node6", "Node7"],
+        "edit_Node": ["Node1"],
+        "value": ""
+    }, {
+        "type": "select_multi_user",
+        "id": "check_persons",
+        "lable": "记录人",
+        "view_Node": ["Node1", "Node4", "Node5", "Node6", "Node7"],
+        "edit_Node": ["Node1"],
+        "value": "",
+        "immutable": "current_user"
+    }, {
+        "type": "lable",
+        "id": "lable_1",
+        "lable": "检查记录",
+        "view_Node": ["Node2", "Node4", "Node5", "Node6", "Node7"],
+        "edit_Node": [],
+        "children": [{
+            "type": "sub_title",
+            "id": "sub_title_1",
+            "lable": "一、现场围挡",
+            "view_Node": ["Node2", "Node4", "Node5", "Node6", "Node7"],
+            "edit_Node": [],
+            "children": [{
+                "type": "check_item",
+                "id": "check_item_1_1",
+                "lable": "1.围墙不能先于施工者，应四周设置围挡，其高度不得低于2.5m，材料坚固，搭设稳定、整洁、美观",
+                "view_Node": ["Node2", "Node4", "Node5", "Node6", "Node7"],
+                "edit_Node": ["Node2"],
+                "value": "",
+                "attachment": "",
+                "remark": ""
+            }]
+        }, {
+            "type": "sub_title",
+            "id": "sub_title_2",
+            "lable": "二、封闭管理",
+            "view_Node": ["Node1", "Node4", "Node5", "Node6", "Node7"],
+            "edit_Node": [],
+            "children": [{
+                "type": "check_item",
+                "id": "check_item_2_1",
+                "lable": "1.施工现场进出口有大门，有门卫制度，门头设置企业标示",
+                "view_Node": ["Node1", "Node4", "Node5", "Node6", "Node7"],
+                "edit_Node": ["Node1"],
+                "value": "",
+                "attachment": "",
+                "remark": ""
+            }]
+        }, {
+            "type": "sub_title",
+            "id": "sub_title_3",
+            "lable": "三、施工现场",
+            "view_Node": ["Node1", "Node4", "Node5", "Node6", "Node7"],
+            "edit_Node": [],
+            "children": [{
+                "type": "check_item",
+                "id": "check_item_3_1",
+                "lable": "1.工地地面经硬化处理，道路顺畅、排水无阻、地面无积水",
+                "view_Node": ["Node1", "Node4", "Node5", "Node6", "Node7"],
+                "edit_Node": ["Node1"],
+                "value": "",
+                "attachment": "",
+                "remark": ""
+            }, {
+                "type": "check_item",
+                "id": "check_item_3_2",
+                "lable": "2.设有防泥浆、污水、废水外流或堵塞下水道的排水河道措施",
+                "view_Node": ["Node1", "Node4", "Node5", "Node6", "Node7"],
+                "edit_Node": ["Node1"],
+                "value": "",
+                "attachment": "",
+                "remark": ""
+            }, {
+                "type": "check_item",
+                "id": "check_item_3_3",
+                "lable": "3.办公室前有绿化布置",
+                "view_Node": ["Node1", "Node4", "Node5", "Node6", "Node7"],
+                "edit_Node": ["Node1"],
+                "value": "",
+                "attachment": "",
+                "remark": ""
+            }, {
+                "type": "check_item",
+                "id": "check_item_3_4",
+                "lable": "4.道路专人打扫，工完料净场地清",
+                "view_Node": ["Node1", "Node4", "Node5", "Node6", "Node7"],
+                "edit_Node": ["Node1"],
+                "value": "",
+                "attachment": "",
+                "remark": ""
+            }]
+        }]
+    }, {
+        "type": "multi_attach",
+        "id": "live_photo",
+        "lable": "现场拍照",
+        "view_Node": ["Node2", "Node4", "Node5", "Node6", "Node7"],
+        "edit_Node": ["Node1"],
+        "value": ""
+    }, {
+        "type": "multi_text",
+        "id": "rectify_opinions",
+        "lable": "整改意见",
+        "view_Node": ["Node2", "Node4", "Node5", "Node6", "Node7"],
+        "edit_Node": ["Node2"],
+        "value": ""
+    }, {
+        "type": "multi_text",
+        "id": "rectify_detail",
+        "lable": "整改情况",
+        "view_Node": ["Node4", "Node5", "Node6", "Node7"],
+        "edit_Node": ["Node4"],
+        "value": ""
+    }, {
+        "type": "select_multi_user",
+        "id": "rectify_persons",
+        "lable": "记录人",
+        "view_Node": ["Node4", "Node5", "Node6", "Node7"],
+        "edit_Node": ["Node4"],
+        "value": "",
+        "immutable": "current_user"
+    }, {
+        "type": "multi_text",
+        "id": "recheck_detail",
+        "lable": "整改情况",
+        "view_Node": ["Node6", "Node7"],
+        "edit_Node": ["Node6"],
+        "value": ""
+    }, {
+        "type": "select_user",
+        "id": "recheck_persons",
+        "lable": "记录人",
+        "view_Node": ["Node6", "Node7"],
+        "edit_Node": ["Node6"],
+        "value": "",
+        "immutable": "current_user"
+    }],
+    "buttonAction": {},
+    "flowButtons": [{
+        "actionData": {
+            "operateFlag": "0",
+            "operateMsg": "提交",
+            "operateClazz": "com.horizon.wf.action.ActionSubmit",
+            "nodeId": "Node1",
+            "nextNodeId": "Line11~Node7",
+            "nextNodes": [{
+                "nodeName": "完成巡检",
+                "nodeStatus": "4",
+                "nodeId": "Node7",
+                "nodeKey": "Line11",
+                "selectId": "Line11~Node7",
+                "timeLimit": "0",
+                "selectName": "无隐患(完成巡检)",
+                "authors": {
+                    "SecondAuthor": {
+                        "selectType": "checkbox",
+                        "authorName": "协办",
+                        "authorId": "SecondAuthor",
+                        "isFree": "true",
+                        "isSelect": "true",
+                        "isDefUser": "false",
+                        "isUser": "false"
+                    },
+                    "Reader": {
+                        "selectType": "checkbox",
+                        "authorName": "读者",
+                        "authorId": "Reader",
+                        "isFree": "true",
+                        "isSelect": "true",
+                        "isDefUser": "false",
+                        "isUser": "false"
+                    },
+                    "Author": {
+                        "selectAuthorName": "高亮",
+                        "selectType": "radio",
+                        "authorName": "主办",
+                        "authorId": "Author",
+                        "isFree": "false",
+                        "selectAuthor": "U_100007",
+                        "isSelect": "true",
+                        "isDefUser": "false",
+                        "isUser": "false"
+                    }
+                },
+                "isSelect": "true",
+                "timeLimitType": "0",
+                "nodeGroup": "",
+                "isDone": "false"
+            }],
+            "workId": "HZd9282a6aa07509016b6346dd190d6a",
+            "operateText": "提交",
+            "operate": "submit"
+        },
+        "buttonName": "无隐患(完成巡检)",
+        "buttonId": "submit",
+        "buttonClass": "com.horizon.wf.action.ActionSubmit",
+        "buttonFun": "",
+        "icon": ""
+    }, {
+        "actionData": {
+            "operateFlag": "0",
+            "operateMsg": "请选择办理人",
+            "operateClazz": "com.horizon.wf.action.ActionSubmit",
+            "nodeId": "Node1",
+            "nextNodeId": "Line16~Node4",
+            "nextNodes": [{
+                "nodeName": "隐患整改",
+                "nodeStatus": "4",
+                "nodeId": "Node4",
+                "nodeKey": "Line16",
+                "selectId": "Line16~Node4",
+                "timeLimit": "0",
+                "selectName": "存在隐患(隐患整改)",
+                "authors": {
+                    "SecondAuthor": {
+                        "selectType": "checkbox",
+                        "authorName": "协办",
+                        "authorId": "SecondAuthor",
+                        "isFree": "true",
+                        "isSelect": "true",
+                        "isDefUser": "false",
+                        "isUser": "false"
+                    },
+                    "Reader": {
+                        "selectType": "checkbox",
+                        "authorName": "读者",
+                        "authorId": "Reader",
+                        "isFree": "true",
+                        "isSelect": "true",
+                        "isDefUser": "false",
+                        "isUser": "false"
+                    },
+                    "initAuthor": [{
+                        "key": "100085",
+                        "value": "林柏洪"
+                    }, {
+                        "key": "100274",
+                        "value": "范杰"
+                    }, {
+                        "key": "100672",
+                        "value": "鲁兴存"
+                    }],
+                    "Author": {
+                        "selectAuthorName": "",
+                        "authorId": "",
+                        "selectAuthor": ""
+                    }
+                },
+                "isSelect": "true",
+                "timeLimitType": "0",
+                "nodeGroup": "",
+                "isDone": "false"
+            }],
+            "workId": "HZd9282a6aa07509016b6346dd190d6a",
+            "operateText": "提交",
+            "operate": "submit"
+        },
+        "buttonName": "存在隐患(隐患整改)",
+        "buttonId": "submit",
+        "buttonClass": "com.horizon.wf.action.ActionSubmit",
+        "buttonFun": "",
+        "icon": ""
+    }, {
+        "actionData": {
+            "operateFlag": "0",
+            "operateClazz": "com.horizon.wf.action.ActionSave",
+            "operate": "save",
+            "operateText": "暂存",
+            "operateMsg": "暂存"
+        },
+        "buttonName": "暂存",
+        "buttonId": "save",
+        "buttonClass": "com.horizon.wf.action.ActionSave",
+        "buttonFun": "",
+        "icon": ""
+    }]
+}

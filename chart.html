@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html >
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+	<script src="js/jquery.min.js"></script>
+	 
+	<head>
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" type="text/css" href="css/dateRange.css?v=32"/>
+		<link rel="stylesheet" href="css/mui.css?r=1">
+		<link href="css/mui.picker.css" rel="stylesheet" />
+		<link href="css/mui.poppicker.css" rel="stylesheet" />
+		
+		<title>数据分析</title>
+		<!--标准mui.css-->
+	
+		<style>
+		 
+		   body{
+			    background-color:#FFFFFF;
+				margin: 0;font-family:Microsoft Yahei; 
+			}
+			.head{
+				width: 100%;
+				background-color: #ffffff; 
+				color:#A5A1A1;
+				padding-top:8px; 
+				
+				height: 40px;
+				margin: 0PX;
+			}
+			.head span:nth-child(1){
+				margin: 10px 5px 10px 10px; font-size: 18px;
+				font-weight: bold;
+				color:#1ABCBC;
+				padding-bottom: 50px;
+				vertical-align: baseline
+			}
+			.head span:nth-child(2){ 
+				font-size: 16px;
+				font-weight: bold;
+				color:#797575;
+				vertical-align: baseline
+			}
+			
+			.tablecell{
+				color: #797575;
+				width: 100%;
+				height: 100px; 
+				font-size: 14px  ;
+				font-weight: bold;
+			}  
+			.tablecell td{
+				background-color: #ffffff ; 
+				text-align: center;
+				vertical-align:middle;
+			    width: 100%;
+			}
+			.tablecell td:first-child{border-right: 5px solid #F2F2F2;}
+
+		</style>
+	</head>
+	<body>
+		<header  class="mui-bar mui-bar-nav" style="background-image: url(images/hd.png);background-size:100% 100%; height:60px;padding-top:1px;">
+			<div style="position: fixed;left:10px;" >
+					<img src="images/top_1.png" width="110" style="vertical-align: top;padding-top:10px"/>
+
+			</div>
+			<div style="position: fixed;right:10px;font-size:16px;;padding-top:10px" >
+				<span id='showUserPicker'  style="color:#FFFFFF;" ><!--<span class="mui-icon mui-icon-arrowdown"></span>-->
+				<span>
+			</div>
+		</header>
+
+		<div style="padding-top:70px;margin:0 auto; width:100%; z-index: 9 ; position: fixed;background-color: #fff;color:#8f8f94">
+			<div class="ta_date2" id="div_date1" style="margin-left:0px; width:100%; text-align:center;">
+				统计日期：
+				<span style="background-color: #E6E0E0;padding:5px 10px 5px 10px;border-radius: 13px; ">
+				<span class="date_title" id="date1" style="  text-align:center; line-height:250%; font-family:Microsoft Yahei;font-size:15px;  ">
+				</span></span>
+				<span class="mui-icon mui-icon-search" ></span>
+
+			</div>
+		</div>
+		<div style="padding-top:106px;">
+		<div class="head">
+			<span>|</span><span>进场人员走势</span>
+
+		</div>
+	    <div style="height:5px;background-color:#F2F2F2;">&nbsp;</div>
+		<div id="main" style="padding-top:5px;padding-left:10px;width:100%;height:220px; text-align:center;background-color:#FFFFFF"></div>
+
+		<div style="height:5px;background-color:#F2F2F2;">&nbsp;</div>
+		<div id="main2" style=" padding-top:5px;width:100%;height:210px; text-align:center;background-color:#FFFFFF"></div>
+
+		<div style="height:5px;background-color:#F2F2F2;">&nbsp;</div>
+		<div id="main3" style="padding-left:5px; padding-top:5px;width:100%;height:210px; text-align:center;background-color:#FFFFFF"></div>
+
+		<div style="height:5px;background-color:#F2F2F2;">&nbsp;</div>
+		<div id="main4" style=" padding-top:5px; height:210px; text-align:center;background-color:#FFFFFF"></div>
+		</div>
+		<br/><br/><br/>
+
+	</body>
+
+<script src="js/mui.min.js"></script>
+<script src="layer/layer.js"></script>
+<script src="js/check.js?r=49"></script>
+<script src="js/mui.picker.min.js"></script>
+<!--<script src="js/selectProject.js?v=2"></script>-->
+<script src="js/echarts.common.min.js"></script>
+<script type="text/javascript" id="dateRangeParam"  src="js/dateRange2.js?v=8" data="7"></script>
+<script>
+/***选择项目***/
+var project_id="";
+if(getQueryString("project_id")!=undefined&&getQueryString("project_id")!=null){
+	project_id  = getQueryString("project_id");
+}
+(function($, doc) {
+		getprojectname();
+		datedifference();
+
+})(mui, document);
+
+function getinfo_days(){
+	console.log("开始"+startDate);
+	console.log("结束"+endDate);
+
+}
+function getprojectname(){
+	mui.ajax(baseurl+'/api?method=xcx.project&project_id=' +project_id,{
+				dataType:'json',//服务器返回json格式数据
+				type:'get',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				headers:{'Content-Type':'application/json',"Authorization":'JWT '+localStorage.access_token},
+				success:function(data){
+					document.getElementById('showUserPicker').innerText = data.name;
+					layer.close(loading);
+				},
+				error:function(xhr,type,errorThrown){
+					
+				}
+			});
+}
+
+function datedifference(){
+	var  _dt1  =  new  Date  (startDate.split('-')[0],startDate.split('-')[1]-1,startDate.split('-')[2]);
+	var  _dt2  =  new  Date  (endDate.split('-')[0],endDate.split('-')[1]-1,endDate.split('-')[2]);
+
+	var now = _dt1;
+	var datelist=[];
+	var datavalue=[];
+	while(now  <= _dt2)
+	{
+		console.log("日期："+now);
+		datelist.push((now.getMonth()+1)+'.'+ now.getDate()  );
+		//datavalue.push(Math.round(Math.random()*3000));
+		now.setDate(now.getDate()+1) ;
+	}
+	//调用api 获取真实数据 开始
+	if(project_id===""){project_id="10000"}
+
+	//年龄统计分析
+	chart_age();
+	//调用api 获取真实数据 结束
+
+	chart_day(datelist);
+
+	chart_sex();
+
+	chart_area();
+
+}
+function chart_area(){
+	mui.ajax(baseurl+'/api2/rpt/project',{
+				data:{project_id:project_id,method:"tj_online_area_by_time",bt:startDate,et:endDate},
+				dataType:'json',//服务器返回json格式数据
+				type:'post',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				headers:{'Content-Type':'application/json',"Authorization":'JWT '+localStorage.access_token},
+				success:function(data){
+					if(data.status ==="success"){
+						var datelist=[];
+						var datavalue=[];
+						for(var j=0;j<data.data.length;j++){
+							datelist.push(data.data[j].province);
+							datavalue.push(data.data[j].count);
+						}
+						var myChart = echarts.init(document.getElementById('main4'), 'light');
+						//datelist=["长春","吉林","沈阳","杭州","山东","三亚","海南","上海","西藏","甘肃","四川","辽宁","北京","重庆","成都"]
+						//datavalue=["4","4","4","4","4","4","6","4","4","4","4","4","4","4","8"]
+						_bar(myChart,datelist,datavalue,title='人员来源地区分布');
+					}else{
+					    document.getElementById("main4").innerHTML="<span style=\"color:gray\">无数据</span>";
+
+					}
+
+				},
+				error:function(xhr,type,errorThrown){
+					check_status(xhr);
+				}
+			});
+}
+
+function chart_sex(){
+	mui.ajax(baseurl+'/api2/rpt/project',{
+				data:{project_id:project_id,method:"tj_online_sex_by_time",bt:startDate,et:endDate},
+				dataType:'json',//服务器返回json格式数据
+				type:'post',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				headers:{'Content-Type':'application/json',"Authorization":'JWT '+localStorage.access_token},
+				success:function(data){
+					if(data.status ==="success"){
+						var sexdata=[];
+						for(var j=0;j<data.data.length;j++){
+							sexdata.push({"value":data.data[j].count,"name":data.data[j].sex});
+						}
+						//var data = [{value:Math.round(Math.random()*3000), name:'男'},{value:Math.round(Math.random()*3000), name:'女'}]
+						var myChart = echarts.init(document.getElementById('main2'), 'light');
+						_pie(myChart,sexdata);
+					}else{
+                        document.getElementById("main2").innerHTML="<span style=\"color:gray\">无数据</span>";
+					}
+
+				},
+				error:function(xhr,type,errorThrown){
+					check_status(xhr);
+				}
+			});
+}
+
+function chart_day(datelist){
+	mui.ajax(baseurl+'/api2/rpt/project',{
+				data:{project_id:project_id,method:"tj_online_count_by_day",bt:startDate,et:endDate},
+				dataType:'json',//服务器返回json格式数据
+				type:'post',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				headers:{'Content-Type':'application/json',"Authorization":'JWT '+localStorage.access_token},
+				success:function(data){
+					if(data.status ==="success"){
+						var myChart = echarts.init(document.getElementById('main'), 'light');
+						var datavalue=[];
+						for(var j=0;j<data.data.length;j++){
+							datavalue.push(data.data[j].count);
+						}
+						console.log(datelist);
+						console.log(datavalue);
+						_linearea(myChart,datelist,datavalue);
+					}else{
+
+						 document.getElementById("main").innerHTML="<span style=\"color:gray\">无数据</span>";
+					}
+
+				},
+				error:function(xhr,type,errorThrown){
+					check_status(xhr);
+				}
+			});
+}
+
+function chart_age(){
+	mui.ajax(baseurl+'/api2/rpt/project',{
+				data:{project_id:project_id,method:"tj_online_age_by_time",bt:startDate,et:endDate},
+				dataType:'json',//服务器返回json格式数据
+				type:'post',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				headers:{'Content-Type':'application/json',"Authorization":'JWT '+localStorage.access_token},
+				success:function(data){
+					if(data.status ==="success"){
+						var myChart = echarts.init(document.getElementById('main3'), 'light');
+						//datavalue = [{"name":"18岁以下","value":"20"},{"name":"18-30","value":"20"},{"name":"30-40","value":"20"},{"name":"40-50","value":"20"},{"name":"50岁以上","value":"20"}]
+						datavalue = data.data;
+						_pie2(myChart,datavalue,title='年龄分析');
+					}else{
+
+						 document.getElementById("main3").innerHTML="<span style=\"color:gray\">无数据</span>";
+					}
+
+				},
+				error:function(xhr,type,errorThrown){
+					check_status(xhr);
+				}
+			});
+}
+
+function _linearea(myChart,_x,_value){
+		var	option = {
+			/*title: {
+				text: '进场人员走势',
+				fontSize:'12px',
+				left: 'center',
+			},*/
+			tooltip : {
+				trigger: 'axis',
+				formatter: function (params) {
+					console.log(params[0]);
+					console.log(params[1]);
+					var tmp= params[0].name;
+
+					return  tmp.split('.')[0]+'月'+tmp.split('.')[1]+'日:<br/>入场'+params[0].value+'人';
+				},
+				axisPointer: {
+					animation: false
+				}
+			},
+			xAxis: {
+				type: 'category',
+				boundaryGap: false,
+				data: _x
+			},
+			yAxis: {
+				type: 'value',
+				itemStyle: {normal: {color:'blue', label:{show:true}}},
+			},
+			series: [{
+				data: _value,
+				type: 'line',
+				areaStyle: {normal: {color:'#699BF7', label:{show:true}}}
+			}]
+		};
+
+        myChart.setOption(option);
+}
+function _pie(myChart,data){
+        // 指定图表的配置项和数据
+        var option = {
+			title: {
+				text: '性别分析',
+				//subtext: '',
+				left: 'center'
+			},
+			tooltip : {
+				trigger: 'item',
+				formatter: "{a} <br/>{b} : {c} ({d}%)"
+			},
+			/*legend: {
+				orient: 'vertical',
+				left: 'left',
+				data: ['男','女']
+			},*/
+			series : [
+				{
+					name: '性别分析',
+					type: 'pie',
+					radius : '55%',
+					center: ['50%', '60%'],
+					color: ['#fb7c94','#7cbffb'],
+					label: {
+						normal: {
+							formatter: '{b}：{c} \n\n {d}%  '
+						},
+					},
+					data:data,
+
+					itemStyle: {
+						//normal: {color:'#699BF7,red', label:{show:true}},
+						emphasis: {
+							shadowBlur: 10,
+							shadowOffsetX: 0,
+							shadowColor: 'rgba(255, 155,255, 0.5)'
+						}
+					}
+				}
+			]
+		};
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+}
+function _pie2(myChart,data,title=''){
+	// 指定图表的配置项和数据
+	var option = {
+		title: {
+			text: title,
+			//subtext: title,
+			left: 'center'
+		},
+		tooltip : {
+			trigger: 'item',
+			formatter: "{a} <br/>{b} : {c} ({d}%)"
+		},
+		legend: {
+			orient: 'vertical',
+			left: 'left',
+			icon: "circle",   //  这个字段控制形状  类型包括 circle，rect ，roundRect，triangle，diamond，pin，arrow，none
+			itemGap: 10 ,// 设置间距
+			top:15,
+			left:15,
+			textStyle: {
+				fontSize: 14,
+				color: '#333'
+			}
+
+		},
+		series : [
+			{
+				name: title,
+				type: 'pie',
+				radius : '55%',
+				center: ['50%', '60%'],
+				label: {
+					normal: {
+						position: 'inner',
+						formatter: '  {d}%  '
+					}
+				},
+				labelLine: {
+					normal: {
+						show: false
+					}
+				},
+				data:data,
+				itemStyle: {
+					emphasis: {
+						shadowBlur: 10,
+						shadowOffsetX: 0,
+						shadowColor: 'rgba(255, 155,255, 0.5)'
+					}
+				}
+			}
+		]
+	};
+
+	// 使用刚指定的配置项和数据显示图表。
+	myChart.setOption(option);
+}
+function _bar(myChart,_x,_value,title=''){
+	var option = {
+		title: {
+			text: title,
+			//subtext: title,
+			left: 'center'
+		},
+		tooltip : {
+			trigger: 'axis',
+			axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+				type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+			}
+		},
+		grid: {
+			left: '3%',
+			right: '4%',
+			bottom: '3%',
+			width:'95%',
+			containLabel: true
+		},
+		calculable: true,
+		xAxis : [
+			{
+				type : 'category',
+				data :_x,
+				axisTick: {show: false},
+
+			}
+		],
+
+		yAxis : [
+			{
+				type : 'value'
+			}
+		],
+		series : [
+			{
+				name:title,
+				type:'bar',
+				barWidth: '70%',
+				data:_value,
+				label: {
+					normal: {
+						show: true,
+						position: 'outside',
+						distance: 5, //距离图形元素的距
+						align: 'center',//文字水平对齐方式
+						//verticalAlign: 'center',
+						rotate: 0,
+						bottom:5,
+						formatter: ' {c}人 ',//{b}:{c}人
+						fontSize: 12,
+						rich: {
+							name: {
+								textBorderColor: '#fff'
+							}
+						}
+					}
+				},
+			}
+		]
+	};
+	if(_value.length>10){
+		option.dataZoom= [//给x轴设置滚动条
+			{
+				start:0,//默认为0
+				end: 100-1500/31,//默认为100
+				type: 'slider',
+				show: true,
+				xAxisIndex: [0],
+				handleSize: 0,//滑动条的 左右2个滑动条的大小
+				height:18,//组件高度
+
+				left: 30, //左边的距离
+				right: 30,//右边的距离
+				bottom: 0,//右边的距离
+
+				 /*
+				fillerColor: new echarts.graphic.LinearGradient(1, 0, 0, 0, [{
+					//给颜色设置渐变色 前面4个参数，给第一个设置1，第四个设置0 ，就是水平渐变
+					//给第一个设置0，第四个设置1，就是垂直渐变
+					offset: 0,
+					color: '#1eb5e5'
+				}, {
+					offset: 1,
+					color: '#5ccbb1'
+				}]),*/
+				//backgroundColor: '#ddd',//两边未选中的滑动条区域的颜色
+				//showDataShadow: true,//是否显示数据阴影 默认auto
+				//showDetail: true,//即拖拽时候是否显示详细数值信息 默认true
+				//handleIcon: 'M-292,322.2c-3.2,0-6.4-0.6-9.3-1.9c-2.9-1.2-5.4-2.9-7.6-5.1s-3.9-4.8-5.1-7.6c-1.3-3-1.9-6.1-1.9-9.3c0-3.2,0.6-6.4,1.9-9.3c1.2-2.9,2.9-5.4,5.1-7.6s4.8-3.9,7.6-5.1c3-1.3,6.1-1.9,9.3-1.9c3.2,0,6.4,0.6,9.3,1.9c2.9,1.2,5.4,2.9,7.6,5.1s3.9,4.8,5.1,7.6c1.3,3,1.9,6.1,1.9,9.3c0,3.2-0.6,6.4-1.9,9.3c-1.2,2.9-2.9,5.4-5.1,7.6s-4.8,3.9-7.6,5.1C-285.6,321.5-288.8,322.2-292,322.2z',
+				filterMode: 'filter',
+			},
+			//下面这个属性是里面拖到
+			{
+				type: 'inside',
+				show: true,
+				xAxisIndex: [0],
+				start: 0,//默认为1
+				end: 100-1500/31,//默认为100
+			}]
+	}
+	myChart.setOption(option);
+}
+</script> 
+</html>
