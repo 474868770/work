@@ -11,12 +11,12 @@
       <div>
         <van-row>
           <van-col span="12" style="text-align:center">
-            <img src="../../static/images/dianbiao.png" style="max-width:25%" />
+            <img src="../../static/images/dianbiao.png" style="max-height:80px" />
             <div style="font-size:14px">总读数：{{this.power}}</div>
             <div style="font-weight:bold;font-size:16px">今日用量：{{this.toDaypower}}度</div>
           </van-col>
           <van-col span="12" style="text-align:center">
-            <img src="../../static/images/shuibiao.png" style="max-width:25%" />
+            <img src="../../static/images/shuibiao.png" style="max-height:80px" />
             <div style="font-size:14px">总读数：{{this.water}}</div>
             <div style="font-weight:bold;font-size:16px">今日用量：{{this.toDaywater}}吨</div>
           </van-col>
@@ -25,13 +25,13 @@
     </van-panel>
     <br />
     <van-panel title="环境监测仪">
-       <div style="font-size:14px;color:#bababa;margin-left:15px">更新时间：{{this.huanjinglastTime}}</div>
+      <div style="font-size:14px;color:#bababa;margin-left:15px">更新时间：{{this.huanjinglastTime}}</div>
       <div>
         <van-row>
           <div>
             <van-col span="12" style="text-align:center">
               <van-col span="12" style="text-align:center">
-                <img src="../../static/images/wendu.png" style="max-width:40%" />
+                <img src="../../static/images/wendu.png" style="max-height:40px" />
               </van-col>
               <van-col span="12" style="text-align:left">
                 <div style="font-size:14px">温度</div>
@@ -40,7 +40,7 @@
             </van-col>
             <van-col span="12" style="text-align:center">
               <van-col span="12" style="text-align:center">
-                <img src="../../static/images/shidu.png" style="max-width:40%" />
+                <img src="../../static/images/shidu.png" style="max-height:40px" />
               </van-col>
               <van-col span="12" style="text-align:left">
                 <div style="font-size:14px">湿度</div>
@@ -51,7 +51,7 @@
           <div>
             <van-col span="12" style="text-align:center">
               <van-col span="12" style="text-align:center">
-                <img src="../../static/images/zaosheng.png" style="max-width:40%" />
+                <img src="../../static/images/zaosheng.png" style="max-height:40px" />
               </van-col>
               <van-col span="12" style="text-align:left">
                 <div style="font-size:14px">噪声</div>
@@ -60,7 +60,7 @@
             </van-col>
             <van-col span="12" style="text-align:center">
               <van-col span="12" style="text-align:center">
-                <img src="../../static/images/fengsu.png" style="max-width:40%" />
+                <img src="../../static/images/fengsu.png" style="max-height:40px" />
               </van-col>
               <van-col span="12" style="text-align:left">
                 <div style="font-size:14px">风速</div>
@@ -71,7 +71,7 @@
           <div>
             <van-col span="12" style="text-align:center">
               <van-col span="12" style="text-align:center">
-                <img src="../../static/images/pm10.png" style="max-width:40%" />
+                <img src="../../static/images/pm10.png" style="max-height:40px" />
               </van-col>
               <van-col span="12" style="text-align:left">
                 <div style="font-size:14px">扬尘</div>
@@ -80,7 +80,7 @@
             </van-col>
             <van-col span="12" style="text-align:center">
               <van-col span="12" style="text-align:center">
-                <img src="../../static/images/pm25.png" style="max-width:40%" />
+                <img src="../../static/images/pm25.png" style="max-height:40px" />
               </van-col>
               <van-col span="12" style="text-align:left">
                 <div style="font-size:14px">pm2.5</div>
@@ -95,19 +95,127 @@
     <van-panel title="塔机升降机设备">
       <div>
         <van-row>
-          <van-col span="8">
-            <img src="../../static/images/taji.png" style="max-width:100%" />
+          <van-col span="2">
+            <div
+              style="position:relative;margin:10px 5px 10px 5px;float: left;top:1px;left:0px;width:10px;height:10px;border-top:solid 1px #bababa;"
+            ></div>
+            <div
+              style="position:absolute;content:'';top:55px;left:10px;width:1px;height:55px;background-color:#bababa;"
+            ></div>
+            <div style="padding-top:70px;font-size:14px;color:#515151">{{this.tjHight}}m</div>
+            <div
+              style="position:relative;margin:10px 5px 10px 5px;float: left;top:53px;left:0px;width:10px;height:10px;border-top:solid 1px #bababa;"
+            ></div>
+            <div
+              style="position:absolute;content:'';top:45px;left:10px;width:1px;height:55px;background-color:#bababa;margin-top:100px"
+            ></div>
           </van-col>
-          <van-col span="16">
+          <van-col span="7">
+            <img src="../../static/images/taji.png" style="max-height:160px" />
+            <img src="../../static/images/shengjiangji.png" style="max-height:160px;margin-top:30px" />
+          </van-col>
+          <van-col span="2">
+            <div
+              style="position:relative;margin:10px 5px 10px 5px;float: left;top:1px;left:-10px;width:10px;height:10px;border-top:solid 1px #bababa;"
+            ></div>
+            <div
+              style="position:absolute;content:'';top:55px;width:1px;height:30px;background-color:#bababa;"
+            ></div>
+            <div style="padding-top:50px;font-size:14px;color:#515151">{{this.tdHight}}m</div>
+            <div
+              style="position:relative;margin:10px 5px 10px 5px;float: left;top:23px;left:-10px;width:10px;height:10px;border-top:solid 1px #bababa;"
+            ></div>
+            <div
+              style="position:absolute;content:'';top:20px;width:1px;height:30px;background-color:#bababa;margin-top:100px"
+            ></div>
+          </van-col>
+          <van-col span="13">
             <div style="color:#fff;font-size:14px;font-weight:bold;background:#1ABC9C">塔机数据</div>
             <div v-if="this.tjId != ''">
-              <div style="color:#999;font-size:14px">塔吊高度：{{this.tjHight}}米</div>
-              <div style="color:#999;font-size:14px">大臂角度：{{this.tjJiaodu}}°</div>
-              <div style="color:#999;font-size:14px">小车距离：{{this.tjJuli}}米</div>
-              <div style="color:#999;font-size:14px">吊钩线长：{{this.tjXianchang}}米</div>
-              <div style="color:#999;font-size:14px">上报时间：{{this.tjRTime}}</div>
+              <van-row>
+                <van-col span="12">
+                  <div class="kapian1">
+                    <van-row>
+                      <van-col span="12">
+                        <img
+                          src="../../static/images/jiaodu.png"
+                          style="max-width:60%;margin:5px 5px 5px 5px"
+                        />
+                      </van-col>
+                      <van-col span="12" style="text-align:left">
+                        <div style="font-size:14px;text-align:left">角度</div>
+                        <div style="font-size:14px;text-align:left">{{this.tjJiaodu}}</div>
+                      </van-col>
+                    </van-row>
+                  </div>
+                </van-col>
+                <van-col span="12">
+                  <div class="kapian1">
+                    <van-row>
+                      <van-col span="12">
+                        <img
+                          src="../../static/images/fengli.png"
+                          style="max-width:60%;margin:5px 5px 5px 5px"
+                        />
+                      </van-col>
+                      <van-col span="12" style="text-align:left">
+                        <div style="font-size:14px;text-align:left">风速</div>
+                        <div style="font-size:14px;text-align:left">{{this.tjfengsu}}</div>
+                      </van-col>
+                    </van-row>
+                  </div>
+                </van-col>
+              </van-row>
+              <van-row>
+                <van-col span="12">
+                  <div class="kapian1">
+                    <van-row>
+                      <van-col span="12">
+                        <img
+                          src="../../static/images/huizhuan.png"
+                          style="max-width:60%;margin:5px 5px 5px 5px"
+                        />
+                      </van-col>
+                      <van-col span="12" style="text-align:left">
+                        <div style="font-size:14px;text-align:left">回转</div>
+                        <div style="font-size:14px;text-align:left">{{this.rotate}}</div>
+                      </van-col>
+                    </van-row>
+                  </div>
+                </van-col>
+                <van-col span="12">
+                  <div class="kapian1">
+                    <van-row>
+                      <van-col span="12">
+                        <img
+                          src="../../static/images/fudu.png"
+                          style="max-width:60%;margin:5px 5px 5px 5px"
+                        />
+                      </van-col>
+                      <van-col span="12" style="text-align:left">
+                        <div style="font-size:14px;text-align:left">幅度</div>
+                        <div style="font-size:14px;text-align:left">{{this.tjfudu}}</div>
+                      </van-col>
+                    </van-row>
+                  </div>
+                </van-col>
+              </van-row>
+              <div class="kapian1">
+                <van-row>
+                  <van-col span="8">
+                    <img
+                      src="../../static/images/zhongliang.png"
+                      style="max-width:50%;margin:5px 5px 5px 5px"
+                    />
+                  </van-col>
+                  <van-col span="12" style="text-align:left">
+                    <div style="font-size:14px;text-align:left">重量{{this.weight}}</div>
+                  </van-col>
+                </van-row>
+              </div>
+              <div style="color:#999;font-size:12px">上报时间：{{this.tjRTime}}</div>
             </div>
-            <div v-if="this.tjId ==''">未配置升降机</div>
+            <div v-if="this.tjId ==''" style="margin:70px 30px 70px 30px">未配置塔机</div>
             <div style="color:#fff;font-size:14px;font-weight:bold;background:#1ABC9C">升降机数据</div>
             <div v-if="this.shengjianId != ''">
               <div style="color:#999;font-size:14px">高度：{{this.Height}}米</div>
@@ -115,7 +223,7 @@
               <div style="color:#999;font-size:14px">笼门状态：{{this.DoorState}}</div>
               <div style="color:#999;font-size:14px">上报时间：{{this.RTime}}</div>
             </div>
-            <div v-if="this.shengjianId ==''">未配置升降机</div>
+            <div v-if="this.shengjianId ==''" style="margin:70px 30px 30px 30px">未配置升降机</div>
           </van-col>
         </van-row>
       </div>
@@ -198,9 +306,12 @@ export default {
       },
       tjRTime: "",
       tjHight: "",
-      tjJuli: "",
+      tjfudu: "",
       tjJiaodu: "",
-      tjXianchang: "",
+      tjfengsu: "",
+      rotate:"",
+      weight:"",
+      tdHight:"",
       power: "",
       powerId: "",
       toDaypower: "",
@@ -223,7 +334,7 @@ export default {
       oneCreated_time: "",
       shengjianId: "",
       tjId: "",
-      huanjinglastTime:""
+      huanjinglastTime: ""
     };
   },
 
@@ -348,22 +459,26 @@ export default {
             });
           } else if (res.data[i].device_type == 13) {
             this.tjId = res.data[i].device_id;
-            this.tjHight = JSON.parse(res.data[0].params_json).height;
+            this.tjHight = JSON.parse(res.data[i].params_json).height;
+            console.log(this.tjHight)
 
             //塔机数据
             request({
               url: util.api_url3002 + "/datum/meter",
               method: "post",
               data: {
-                method: "query_crane",
+                method: "query_crane2",
                 project_id: this.projectId,
                 devid: this.tjId
               }
             }).then(res => {
-              this.tjRTime = res.data[0].RTime;
-              this.tjJuli = res.data[0].RRange;
-              this.tjJiaodu = res.data[0].Angle;
-              this.tjXianchang = res.data[0].Moment;
+              this.tjRTime = res.data[0].created_time;
+              this.tjfudu = res.data[0].extent;
+              this.tjJiaodu = res.data[0].dip_angle;
+              this.tjfengsu = res.data[0].wind;
+              this.tdHight = res.data[0].height;
+              this.rotate = res.data[0].rotate;
+              this.weight = res.data[0].weight;
             });
           }
         }
@@ -409,7 +524,7 @@ export default {
             sum += item.used;
           });
           console.log("今日用水量", sum);
-          this.toDaywater = sum.toFixed(2);
+          this.toDaywater = sum.toFixed(1);
         });
       });
 
@@ -490,5 +605,11 @@ a {
 }
 .van-cell__title {
   font-size: 16px;
+}
+.kapian1 {
+  margin: 2px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  border: 1px solid rgb(186, 186, 186);
 }
 </style>

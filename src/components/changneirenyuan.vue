@@ -44,6 +44,7 @@
       square
       type="info"
       style="width:100%;background-color: #1AC9B9;border-color:#1AC9B9"
+      :class="searchBarFixed == true ? 'isFixed' :''"
     >{{project}}</van-button>
     <van-popup v-model="showPicker" position="bottom">
       <van-picker
@@ -82,13 +83,39 @@
     <van-dropdown-menu>
       <van-dropdown-item v-model="value2" :options="option2" @change="paixu" />
     </van-dropdown-menu>
+
+    <!-- <div class="kapian1">
+      <van-row>
+        <van-col span="4">
+          <van-tag round size="medium">
+            <van-icon name="closed-eye" />99%
+          </van-tag>
+        </van-col>
+        <van-col span="12">2019-12-05 19:08:22</van-col>
+        <van-col span="8">...</van-col>
+      </van-row>
+      <div class="kapianziti" style="color:#515151">1111</div>
+      <div class="kapianziti" style="color:#bababa">11111</div>
+      <div class="kapianziti" style="color:#bababa">期望身高：1111</div>
+      <van-row>
+              <van-col span="4">
+     <img
+              slot="icon"
+              width="45"
+              height="45"
+              style="display:block;border-radius:50px;margin:0px"
+              src="../../static/images/tianjia.png"
+              v-if="this.imgUrl == ''"
+            />
+        </van-col>
+        <van-col span="12">2019-12-05 19:08:22</van-col>
+        <van-col span="8">...</van-col>
+      </van-row>
+    </div> -->
+
     <van-collapse v-model="activeName" accordion v-for="(item,index) in list" :key="index">
       <van-collapse-item :name="item.userid">
-        <div
-          slot="title"
-          style="color:red"
-          v-if="item.face<=50"
-        >
+        <div slot="title" style="color:red" v-if="item.face<=50">
           <van-row>
             <router-link :to="{path:'/person',query:{id:item.personUid}}">
               <van-col span="4">
@@ -248,6 +275,7 @@ export default {
 
   data() {
     return {
+      searchBarFixed: "",
       touxiang: "",
       imgUrl: "static/images/tianjia.png",
       activeName: "1",
@@ -309,6 +337,20 @@ export default {
   },
 
   methods: {
+    handleScroll() {
+      var scrollTop =
+        window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop;
+      console.log(scrollTop);
+      // var offsetTop = document.querySelector("#searchBar").offsetTop;
+      if (scrollTop > 100) {
+        this.searchBarFixed = true;
+      } else {
+        this.searchBarFixed = false;
+      }
+    },
+
     loadMe() {
       var pinyin = require("pinyin");
       this.show1 = true;
@@ -603,7 +645,8 @@ export default {
     this.projectId = parseInt(this.$getCookie("project_id"));
     var openId = this.$getCookie("openid");
     this.project = this.$getCookie("project_id");
-    this.$setCookie("access_token", this.$getQueryString("token"))
+    this.$setCookie("access_token", this.$getQueryString("token"));
+    window.addEventListener("scroll", this.handleScroll);
   }
 };
 </script>
@@ -648,5 +691,19 @@ export default {
 .ziti {
   color: #bababa;
   font-size: 14px;
+}
+
+.isFixed {
+  position: fixed;
+  background-color: #fff;
+  top: 0;
+  z-index: 999;
+}
+
+.kapian1 {
+  margin: 10px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 10px;
 }
 </style>
