@@ -8,6 +8,7 @@ import iot from '@/components/iot'
 import phone from '@/components/phone'
 import rili from '@/components/rili'
 import person from '@/components/person'
+import xunjian from '@/components/xunjian'
 
 Vue.use(Router)
 
@@ -34,7 +35,7 @@ export default new Router({
       name: 'more',
       component: more,
       meta: {
-        title: '易得信息登录'
+        title: '易正科技登录'
       },
     }, {
       path: '/kaoqin',
@@ -82,6 +83,14 @@ export default new Router({
       component: person,
       meta: {
         title: '个人详情'
+      }
+    },
+    {
+      path: '/xunjian',
+      name: 'xunjian',
+      component: xunjian,
+      meta: {
+        title: '安全巡检记录',
       }
     }
   ]

@@ -52,6 +52,27 @@
       title-inactive-colo="#515151"
       animated
     >
+      <van-tab title="上工日历">
+        <el-calendar v-model="valueR" v-loading="loading1">
+          <!-- 这里使用的是 2.5 slot 语法，对于新项目请使用 2.6 slot 语法-->
+          <template slot="dateCell" slot-scope="{date, data}">
+            <div class="calendar-day">{{ data.day.split('-').slice(2).join('-') }}</div>
+            <div v-for="(item,index) in workCalendar" :key="index">
+              <div v-if="data.day.replace(/-/g,'') == item.date">
+                <van-tag round type="primary" size="medium">
+                  <van-icon name="clock-o" />
+                  {{item.work_hours}}h
+                </van-tag>
+              </div>
+            </div>
+          </template>
+        </el-calendar>
+        <div style="background:#fff">
+          <div class="time" style="background:rgb(25, 137, 250);">进场时间：{{this.toDay.in_time}}</div>
+          <div class="time" style="background:#1AC9B9">出场时间：{{this.toDay.out_time}}</div>
+          <div class="time" style="background:red">工作时长：{{this.toDay.work_hours}}小時</div>
+        </div>
+      </van-tab>
       <van-tab title="入职照片">
         <div style="background:#fff">
           <img :src="this.rzPic" style="margin-top:10px;width:100%;height:100%" />
@@ -187,9 +208,13 @@ export default {
       personId: this.$route.query.id,
       projectId: "",
       loading: true,
+      loading1: true,
+      toDay: "",
       userName: "",
       banzhu: "",
       group: "",
+      valueR: new Date(),
+      workCalendar: [],
       zhuanye: "",
       age: "",
       mobile: "",
@@ -213,7 +238,37 @@ export default {
       personInfo: []
     };
   },
-
+  watch: {
+    valueR: function() {
+      this.loading1 = true;
+      var year = this.valueR.getFullYear();
+      var month = this.valueR.getMonth() + 1;
+      console.log(year + "-" + month); // 打印出日历选中了哪年哪月
+      request({
+        url: util.api_url3002 + "/info/project",
+        method: "post",
+        async: false,
+        data: {
+          person_id: this.personId,
+          method: "query_person_worktime",
+          project_id: this.projectId,
+          bt: year + "-" + month + "-01",
+          et: year + "-" + month + "-31"
+        }
+      }).then(res => {
+        this.loading1 = true;
+        this.workCalendar = res.data;
+        var temp = year + "-" + month + "-" + this.valueR.getDate();
+        for (let i in res.data) {
+          if (temp.replace(/-/g, "") == res.data[i].date) {
+            this.toDay = res.data[i];
+          }
+        }
+        this.loading1 = false;
+        console.log(this.toDay);
+      });
+    }
+  },
   methods: {
     handleChange(value, options) {
       console.log(value, this.options);
@@ -308,6 +363,33 @@ export default {
   mounted() {
     this.projectId = parseInt(this.$getCookie("project_id"));
     var openId = this.$getCookie("openid");
+
+    var year = this.valueR.getFullYear();
+    var month = this.valueR.getMonth() + 1;
+    console.log(year + "-" + month); // 打印出日历选中了哪年哪月
+    request({
+      url: util.api_url3002 + "/info/project",
+      method: "post",
+      async: false,
+      data: {
+        person_id: this.personId,
+        method: "query_person_worktime",
+        project_id: this.projectId,
+        bt: year + "-" + month + "-01",
+        et: year + "-" + month + "-31"
+      }
+    }).then(res => {
+      this.workCalendar = res.data;
+      console.log(this.workCalendar);
+      var temp = year + "-" + month + "-" + this.valueR.getDate();
+      for (let i in res.data) {
+        if (temp.replace(/-/g, "") == res.data[i].date) {
+          this.toDay = res.data[i];
+        }
+      }
+      this.loading1 = false;
+    });
+
     request({
       url:
         util.api_url + "/api?method=xcx.project&project_id=" + this.projectId,
@@ -420,5 +502,16 @@ export default {
 
 .pdf {
   margin: 5px;
+}
+
+.is-selected {
+  color: #1989fa;
+}
+
+.time {
+  margin: 10px;
+  border-radius: 10px;
+  padding: 10px;
+  color: #ffffff;
 }
 </style>

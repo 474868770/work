@@ -111,14 +111,14 @@
               >{{this.tjfudu}}m</div>
               <img src="../../static/images/taji.png" style="max-height:160px" />
               <van-row>
-                <van-col span="8">
+                <van-col span="8"  style="text-align:right">
                   <img
                     src="../../static/images/zhongliang.png"
                     style="max-width:50%;margin:5px 5px 5px 5px"
                   />
                 </van-col>
                 <van-col span="12" style="text-align:left">
-                  <div style="font-size:14px;text-align:left">重量:{{this.weight}}</div>
+                  <div style="font-size:14px;text-align:left;margin:10px">重量:{{this.weight}}</div>
                 </van-col>
               </van-row>
             </div>
@@ -191,7 +191,7 @@
                           <van-col span="12">
                             <img
                               src="../../static/images/fudu.png"
-                              style="max-width:60%;margin:5px 5px 5px 5px"
+                              style="max-width:90%;margin:5px 5px 5px 5px;height:32px"
                             />
                           </van-col>
                           <van-col span="12" style="text-align:left">
@@ -206,7 +206,7 @@
                     <van-row>
                       <van-col span="8">
                         <img
-                          src="../../static/images/zhongliang.png"
+                          src="../../static/images/liju.png"
                           style="max-width:50%;margin:5px 5px 5px 5px"
                         />
                       </van-col>

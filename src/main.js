@@ -21,6 +21,9 @@ import '@nutui/nutui/dist/nutui.css';
 import {
 	ConfigPlugin
 } from "vux";
+import VueClipboard from 'vue-clipboard2'
+
+Vue.use(VueClipboard)
 NutUI.install(Vue);
 Vue.use(ElementUI);
 Vue.use(DropdownMenu).use(DropdownItem);
@@ -29,6 +32,7 @@ Vue.use(router);
 Vue.use(ConfigPlugin, {
 	$layout: 'VIEW_BOX'
 })
+
 //sVue.prototype.$check = check; 
 
 //添加标题
